@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //Location Permission already granted
                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
                 mGoogleMap.setMyLocationEnabled(true);
+                //o soursos pethane kata th diarkeia tou development
             } else {
                 //Request Location Permission
                 checkLocationPermission();
