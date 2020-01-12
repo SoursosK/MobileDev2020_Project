@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+
+  <title>Αναφορά Συμβάντος</title>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#example').DataTable();
+    });
+  </script>
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Corpa</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="hartisE.html">Αρχική <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="event.html">Αναφορά Συμβάντος</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="list.html">Λίστα Προβλημάτων</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-rightt">
+          <a class="nav-link" href="hartis.html">Αποσύνδεση</a>
+        </ul>
+
+      </div>
+    </nav>
+  </header>
+  <br><br>
+  <!-- Begin page content -->
+  <div class="container">
+    <h2 class="mt-5">Επιλέξτε την περιοχή του συμβάντος</h2>
+    <!-- Small button groups (default and split) -->
+
+    <br>
+
+    <div id="map" style="height:600px;"></div>
+
+    <br>
+    <div>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Τίτλος Συμβάντος</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Τίτλος Συμβάντος">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Latitude</label>
+        <input type="text" class="form-control" name="lat" id="lat" value="37.789" placeholder="Latitude">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Longitude</label>
+        <input type="text" class="form-control" name="lon" id="lon" value="26.708" placeholder="Longitude">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Επιλέξτε σημαντικότητα συμβάντος</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>Έκτακτη Ανάγκη</option>
+          <option>Πολύ Υψηλή</option>
+          <option>Υψηλή</option>
+          <option>Μέτρια</option>
+          <option>Χαμηλή</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Δώστε μια σύντομη περιγραφή</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+    </div>
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+      Υποβολή Συμβάντος
+    </button>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Επιτυχής Υποβολή</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            Nice!!
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+      function addMapPicker() {
+        var mapCenter = [37.789, 26.708];
+        var map = L.map('map', {
+          center: mapCenter,
+          minZoom: 2,
+          zoom: 15
+        });
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          subdomains: ['a', 'b', 'c']
+        }).addTo(map);
+
+        var marker = L.marker(mapCenter).addTo(map);
+        var updateMarker = function (lat, lng) {
+          marker
+            .setLatLng([lat, lng])
+            .bindPopup("Your location :  " + marker.getLatLng().toString())
+            .openPopup();
+          return false;
+        };
+        map.on('click', function (e) {
+          $('#lat').val(e.latlng.lat);
+          $('#lon').val(e.latlng.lng);
+          updateMarker(e.latlng.lat, e.latlng.lng);
+        });
+
+        var updateMarkerByInputs = function () {
+          return updateMarker($('#lat').val(), $('#lon').val());
+        }
+        $('#lat').on('input', updateMarkerByInputs);
+        $('#lon').on('input', updateMarkerByInputs);
+      }
+
+      $(document).ready(function () {
+        addMapPicker();
+      });
+    </script>
+
+</body>
+
+</html>

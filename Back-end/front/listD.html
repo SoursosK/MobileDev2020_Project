@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+
+  <title>Αναφορά Συμβάντος</title>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/styles.css" rel="stylesheet">
+
+	<style>
+		.table {
+			cursor: pointer;
+		}
+	</style>
+  
+</head>
+
+<body>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#example').DataTable();
+    });
+  </script>
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Corpa</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="hartisD.html">Αρχική <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="listD.html">Λίστα Προβλημάτων</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-rightt">
+          <a class="nav-link" href="hartis.html">Αποσύνδεση</a>
+        </ul>
+        
+      </div>
+    </nav>
+  </header>
+  <br><br>
+  <!-- Begin page content -->
+  <div class="container">
+    <h2 class="mt-5">Καλώς ορίσατε!</h2>
+	<p>Σε αυτήν τη λίστα θα βρείτε αναφορές προβλημάτων. </p>
+	<p>
+	<div class="table-responsive">
+		<table class="table table-hover">
+		  <thead>
+			<tr>
+			  <th scope="col">#</th>
+			  <th scope="col">Περιγραφή</th>
+			  <th scope="col">Τοποθεσία</th>
+			  <th scope="col">Ημερομηνία Υποβολής</th>
+			  <th scope="col">Κατάσταση Προβλήματος Αναφοράς</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <th scope="row">1</th>
+			  <td>Ένας απινιδωτής δε δουλεύει!</td>
+			  <td><a href="https://goo.gl/maps/S6EwmUVkLJ52">Βαθύ</a></td>
+			  <td>9/1/2020</td>
+			  <td><i class='fas fa-exclamation'></i>	Άλυτο</td>
+			</tr>
+			<tr>
+			  <th scope="row">2</th>
+			  <td>Το κυτίο του απινιδωτή έχει βανδαλιστεί</td>
+			  <td><a href="https://goo.gl/maps/pPXNRcnWgQr">Πυθαγόρειο</a></td>
+			  <td>9/1/2020</td>
+			  <td><i class='fas fa-wrench'></i>		Υπό επιδιόρθωση</td>
+			</tr>
+			<tr>
+			  <th scope="row">3</th>
+			  <td>ΑΛΗΤΕΣ ΣΑΣ ΨΗΦΙΣΑΜΕ ΓΙΑ ΠΑΡΑΠΑΝΩ ΑΠΗΝΗΔΟΤΑΙΣ</td>
+			  <td><a href="https://goo.gl/maps/tqBexNj1N3F2">Καρλόβασι</a></td>
+			  <td>9/1/2020</td>
+			  <td><i class='fas fa-ban'></i>	Απορρίφθηκε</i></td>
+			</tr>
+			<tr>
+			  <th scope="row">4</th>
+			  <td>Έχει σπάσει ένα τζάμι στον απινιδωτή</td>
+			  <td><a href="https://goo.gl/maps/ttangoPoir32">Σπαθαραίοι</a></td>
+			  <td>9/1/2020</td>
+			  <td><i class='fas fa-check-circle'></i>	Επιδιορθώθηκε</i></td>
+			</tr>
+			<tr>
+			  <th scope="row">5</th>
+			  <td>Ο απινιδωτής στον Ευαγγελισμό της Θεοτόκου δε δουλεύει</td>
+			  <td><a href="https://goo.gl/maps/ttangoPoir32">Κουσμαδαίοι</a></td>
+			  <td>9/1/2020</td>
+			  <td><i class='fas fa-check-circle'></i>	Επιδιορθώθηκε</i></td>
+			</tr>
+		  </tbody>
+		</table>
+	</div>
+	</p>
+	
+	<p>
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">		
+		<li class="page-item disabled">
+		  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Προηγούμενο</a>
+		</li>
+		<li class="page-item"><a class="page-link" href="#">1</a></li>
+		<li class="page-item"><a class="page-link" href="#">2</a></li>
+		<li class="page-item"><a class="page-link" href="#">3</a></li>
+		<li class="page-item"><a class="page-link" href="#">Επόμενο</a></li>
+	  </ul>
+	</nav>
+	</p>
+    </div>
+
+    
+    
+
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+
+  <script>
+    var map;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+          lat: 40.426785,
+          lng: -88.985765
+        },
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+        streetViewControl: false,
+        labels: true,
+        zoom: 7
+      });
+    }
+  </script>
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-30_zObLbQUwN2cHkuu760i8qFJaN92o&callback=initMap" async defer></script>
+</body>
+
+</html>
+
+
