@@ -102,14 +102,13 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           var json = JSON.parse(this.responseText);
-          // console.log(this.responseText);
-          json = json.defibrillatorsList;
+          json = json["defibrillatorsList"];
           for (def in json) {
-            L.marker([def.lat, def.lon]).addTo(map);
+            L.marker([json[def]["lat"], json[def]["long"]]).addTo(map);
           }
         }
       };
-      xhttp.open("GET", "https://kostas109.pythonanywhere.com/defibrillators", true);
+      xhttp.open("GET", "def.php", true);
       xhttp.send();
     </script>
 
