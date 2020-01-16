@@ -80,24 +80,28 @@
 		function login12() {
 			var ekav = document.getElementById('defaultUnchecked').checked;
 			var dimos = document.getElementById('defaultChecked').checked;
-			var username = document.getElementById('exampleInputUsername');
-			var password = document.getElementById('exampleInputPassword1');
+			var username = document.getElementById('exampleInputUsername').value;
+			var password = document.getElementById('exampleInputPassword1').value;
 			var terms = document.getElementById('exampleCheck1');
 			if (!terms) return;
 			var userType = "";
 			if (ekav) userType = "EKABadmin";
 			else if (dimos) userType = "Dimos";
 
+			var json = '{"username": "' + username + '","password": "' + password + '", "userType": "' + userType + '"}';
+
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function () {
-				if (this.readyState == 4 && this.status == 200 && this.responseText == userType) {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log(this.responseText);
+					if (this.responseText != userType) return;
 					if (ekav) window.location.href = "hartisE.html";
 					else if (dimos) window.location.href = "hartisD.html";
 				}
 			};
-			xhttp.open("POST", "https://kostas109.pythonanywhere.com/login", true);
+			xhttp.open("POST", "login.php", true);
 			xhttp.setRequestHeader("Content-type", "application/json");
-			xhttp.send('{"username": "' + username + '","password": "' + password + '", "userType": "' + userType + '"}');
+			xhttp.send(json);
 		}
 	</script>
 
