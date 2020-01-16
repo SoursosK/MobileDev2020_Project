@@ -97,10 +97,24 @@
         subdomains: ['a', 'b', 'c']
       }).addTo(map);
 
-      L.marker([37.79615, 26.70126]).addTo(map);
-      L.marker([37.79715, 26.70226]).addTo(map);
-      L.marker([37.79815, 26.70326]).addTo(map);
-      L.marker([37.79915, 26.70426]).addTo(map);
+      // L.marker([37.79615, 26.70126]).addTo(map);
+      // L.marker([37.79715, 26.70226]).addTo(map);
+      // L.marker([37.79815, 26.70326]).addTo(map);
+      // L.marker([37.79915, 26.70426]).addTo(map);
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var json = JSON.parse(this.responseText);
+          // console.log(this.responseText);
+          json = json.defibrillatorsList;
+          for (def in json) {
+            L.marker([def.lat, def.lon]).addTo(map);
+          }
+        }
+      };
+      xhttp.open("GET", "https://kostas109.pythonanywhere.com/defibrillators", true);
+      xhttp.send();
     </script>
 
 

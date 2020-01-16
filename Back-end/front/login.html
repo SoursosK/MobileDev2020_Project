@@ -2,94 +2,106 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
 
-  <title>Είσοδος Διαχειριστή</title>
+	<title>Είσοδος Διαχειριστή</title>
 
-  
-  <!-- Custom styles for this template -->
-  <link href="css/styles.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="css/styles.css" rel="stylesheet">
 
 </head>
 
 <body>
-  <header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Corpa</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="hartis.html">Αρχική <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-        
-      </div>
-    </nav>
-  </header>
-  <br><br>
-  <!-- Begin page content -->
-  <div class="container">
-	  <h2 class="mt-5">Φόρμα Εισόδου Διαχειριστή</h2>
+	<header>
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="#">Corpa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+				aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="hartis.html">Αρχική <span class="sr-only">(current)</span></a>
+					</li>
+				</ul>
+
+			</div>
+		</nav>
+	</header>
+	<br><br>
+	<!-- Begin page content -->
+	<div class="container">
+		<h2 class="mt-5">Φόρμα Εισόδου Διαχειριστή</h2>
 
 		<div class="form-group">
 			<label for="exampleInputUsername">Όνομα Διαχειριστή</label>
-			<input type="username" class="form-control" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Εισάγετε Όνομα Διαχειριστή">
-		  </div>
-		  <div class="form-group">
+			<input type="username" class="form-control" id="exampleInputUsername" aria-describedby="usernameHelp"
+				placeholder="Εισάγετε Όνομα Διαχειριστή">
+		</div>
+		<div class="form-group">
 			<label for="exampleInputPassword1">Κωδικός Πρόσβασης</label>
 			<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Κωδικός Πρόσβασης">
-		  </div>
-		  <div class="form-group form-check">
+		</div>
+		<div class="form-group form-check">
 			<input type="checkbox" class="form-check-input" id="exampleCheck1">
 			<label class="form-check-label" for="exampleCheck1">Συναινώ με τους <a href="#">Όρους Χρήσης</a>.</label>
-		  </div>
-		  <div class="form-group">
+		</div>
+		<div class="form-group">
 			<div class="custom-control custom-radio">
-			  <input type="radio" class="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios">
-			  <label class="custom-control-label" for="defaultUnchecked">Διαχειριστής ΕΚΑΒ</label>
+				<input type="radio" class="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios">
+				<label class="custom-control-label" for="defaultUnchecked">Διαχειριστής ΕΚΑΒ</label>
 			</div>
 			<div class="custom-control custom-radio">
-			  <input type="radio" class="custom-control-input" id="defaultChecked" name="defaultExampleRadios" checked>
-			  <label class="custom-control-label" for="defaultChecked">Δήμος</label>
+				<input type="radio" class="custom-control-input" id="defaultChecked" name="defaultExampleRadios"
+					checked>
+				<label class="custom-control-label" for="defaultChecked">Δήμος</label>
 			</div>
 		</div>
-		  <button onclick="login12()" class="btn btn-primary">Είσοδος</button>
+		<button onclick="login12()" class="btn btn-primary">Είσοδος</button>
 
 	</div>
 
-  <!-- Bootstrap core JavaScript
+	<!-- Bootstrap core JavaScript
     ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
+	<!-- Placed at the end of the document so the pages load faster -->
 
-  <script>
-	function login12(){
-		var ekav = document.getElementById('defaultUnchecked').checked;
-		var dimos = document.getElementById('defaultChecked').checked;
-		
-		if(ekav){
-			window.location.href = "hartisE.html";
+	<script>
+		function login12() {
+			var ekav = document.getElementById('defaultUnchecked').checked;
+			var dimos = document.getElementById('defaultChecked').checked;
+			var username = document.getElementById('exampleInputUsername');
+			var password = document.getElementById('exampleInputPassword1');
+			var terms = document.getElementById('exampleCheck1');
+			if (!terms) return;
+			var userType = "";
+			if (ekav) userType = "EKABadmin";
+			else if (dimos) userType = "Dimos";
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200 && this.responseText == userType) {
+					if (ekav) window.location.href = "hartisE.html";
+					else if (dimos) window.location.href = "hartisD.html";
+				}
+			};
+			xhttp.open("POST", "https://kostas109.pythonanywhere.com/login", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send('{"username": "' + username + '","password": "' + password + '", "userType": "' + userType + '"}');
 		}
-		else{
-		
-			window.location.href = "hartisD.html";
-		}
-	}
-  </script>
-  
-  
+	</script>
+
+
 </body>
 
 </html>
-
-
