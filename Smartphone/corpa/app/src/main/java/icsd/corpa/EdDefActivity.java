@@ -2,8 +2,6 @@ package icsd.corpa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,7 +15,7 @@ import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
-public class RegDefActivity extends AppCompatActivity {
+public class EdDefActivity extends AppCompatActivity {
     private Button register;
     private EditText title, desc;
     private LatLng latlng;
@@ -25,22 +23,24 @@ public class RegDefActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reg_def);
+        setContentView(R.layout.activity_ed_def);
 
         latlng = (LatLng) getIntent().getExtras().get("latlng");
 
         title = findViewById(R.id.title);
+        title.setText(getIntent().getExtras().getString("name"));
         desc = findViewById(R.id.desc);
+        desc.setText(getIntent().getExtras().getString("desc"));
         register = findViewById(R.id.regdef);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addDef();
+                edDef();
             }
         });
     }
 
-    private void addDef() {
+    private void edDef() {
         if (isTextInEmpty()) return;
 
         new Thread(new Runnable() {
@@ -61,15 +61,12 @@ public class RegDefActivity extends AppCompatActivity {
                             .put("description", desc.getText().toString())
                             .put("lat", String.valueOf(latlng.latitude))
                             .put("long", String.valueOf(latlng.longitude))
-                            .put("name", title.getText().toString())
-                            .put("photo", "null")
-                            .put("problemDescription", "den uparxei kanean provlhma")
-                            .put("problemType", "kanena provlhma");
+                            .put("name", title.getText().toString());
 
 
                     Connection.Response loginForm = Jsoup
-                            .connect("https://kostas109.pythonanywhere.com/defibrillators")
-                            .method(Connection.Method.POST)
+                            .connect("https://kostas109.pythonanywhere.com/updateDefibrillator")
+                            .method(Connection.Method.PUT)
                             .ignoreContentType(true)
                             .header("Content-Type", "application/json")
                             .requestBody(content.toString())
@@ -88,10 +85,10 @@ public class RegDefActivity extends AppCompatActivity {
                     public void run() {
                         findViewById(R.id.loading).setVisibility(View.INVISIBLE);
                         if (str.length() > 0) {
-                            Toast.makeText(RegDefActivity.this, str.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(EdDefActivity.this, str.toString(), Toast.LENGTH_LONG).show();
                             register.setEnabled(true);
                         } else {
-                            Toast.makeText(RegDefActivity.this, "thanks!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(EdDefActivity.this, "thanks!", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     }

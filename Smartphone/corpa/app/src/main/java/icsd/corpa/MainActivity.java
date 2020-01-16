@@ -34,8 +34,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.maps.android.clustering.ClusterManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Location mLastLocation;
     Marker mCurrLocationMarker;
     FusedLocationProviderClient mFusedLocationClient;
+    ClusterManager<Defibrillator> clusterManager;
 
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -61,6 +69,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setSupportActionBar(tb);
         tb.setSubtitle("MapView");
 
+        FloatingActionButton ref = findViewById(R.id.ref);
+        ref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDefs();
+            }
+        });
+
         Button vid = findViewById(R.id.vid);
         vid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
             }
         });
-
 
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -98,15 +113,34 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
 
+        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                LatLng point = marker.getPosition();
+                Snackbar snack = Snackbar.make(findViewById(R.id.main), marker.getTitle(), Snackbar.LENGTH_LONG);
+                snack.setAction("Επεξεργασία Απινιδωτή", v -> {
+                    Intent i = new Intent(MainActivity.this, EdDefActivity.class);
+                    i.putExtra("latlng", point);
+                    i.putExtra("name", marker.getTitle());
+                    i.putExtra("desc", marker.getSnippet());
+                    startActivity(i);
+                }).show();
+            }
+        });
+
         mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng point) {
                 Snackbar snack = Snackbar.make(findViewById(R.id.main), point.toString(), Snackbar.LENGTH_LONG);
-                snack.setAction("Προσθήκη Απινιδωτή", v -> {startActivity(new Intent(MainActivity.this, RegDefActivity.class));}).show();
+                snack.setAction("Προσθήκη Απινιδωτή", v -> {
+                    Intent i = new Intent(MainActivity.this, RegDefActivity.class);
+                    i.putExtra("latlng", point);
+                    startActivity(i);
+                }).show();
             }
         });
-        setUpClusterManager(mGoogleMap);
+        getDefs();
         googleMap.setIndoorEnabled(true);
 
         UiSettings uiSettings = googleMap.getUiSettings();
@@ -128,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //Location Permission already granted
                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
                 mGoogleMap.setMyLocationEnabled(true);
-                //o soursos pethane kata th diarkeia tou development
             } else {
                 //Request Location Permission
                 checkLocationPermission();
@@ -238,21 +271,92 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void setUpClusterManager(GoogleMap googleMap){
-        ClusterManager<Defibrillator> clusterManager = new ClusterManager(this, googleMap);  // 3
+    private void setUpClusterManager(GoogleMap googleMap, List<Defibrillator> items){
+        clusterManager = new ClusterManager(this, googleMap);  // 3
         googleMap.setOnCameraIdleListener(clusterManager);
-        List<Defibrillator> items = getItems();
         clusterManager.addItems(items);  // 4
-        clusterManager.cluster();  // 5
+        clusterManager.cluster();
     }
-    private List<Defibrillator> getItems() {
-       List<Defibrillator> items = new ArrayList<>();
 
-       for(int i=0; i<4; i++) {
-           items.add(new Defibrillator("defibrillator "+i, "description "+i, new LatLng(37.797199+(double)i*0.001, 26.702173+(double)i*0.001)));
-       }
+    private ArrayList<Defibrillator> jsonStringToArrayList(String json) {
+        ArrayList<Defibrillator> items = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray defs = jsonObject.getJSONArray("defibrillatorsList");
+            for(int i=0; i<defs.length(); i++){
+                items.add(new Defibrillator(
+                        defs.getJSONObject(i).getString("name"),
+                        defs.getJSONObject(i).getString("description"),
+                        new LatLng(
+                                defs.getJSONObject(i).getDouble("lat"),
+                                defs.getJSONObject(i).getDouble("long")
+                        )
+                ));
+            }
+        }  catch (JSONException e) {
+            Log.i("json", e.toString());
+        }
 
-       return items;
+        return items;
+    }
+
+    private void getDefs() {
+       new Thread(new Runnable() {
+           @Override
+           public void run() {
+               StringBuilder json = new StringBuilder();
+               try {
+                   Connection.Response defList = Jsoup
+                           .connect("https://kostas109.pythonanywhere.com/defibrillators")
+                           .ignoreContentType(true)
+                           .execute();
+
+                   if(defList.statusCode() == 200) {
+                       json.append(defList.body());
+                       runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               setUpClusterManager(mGoogleMap, jsonStringToArrayList(json.toString()));
+                               Toast.makeText(MainActivity.this, "Οι τοποθεσίες ανανεώθηκαν", Toast.LENGTH_LONG).show();
+                           }
+                       });
+                   }
+
+               } catch (Exception e) {
+                   Log.v("error", e.toString());
+               }
+           }
+       }).start();
+    }
+
+    private void updateDefs() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                StringBuilder json = new StringBuilder();
+                try {
+                    Connection.Response defList = Jsoup
+                            .connect("https://kostas109.pythonanywhere.com/defibrillators")
+                            .ignoreContentType(true)
+                            .execute();
+
+                    if(defList.statusCode() == 200) {
+                        json.append(defList.body());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                clusterManager.clearItems();
+                                clusterManager.addItems(jsonStringToArrayList(json.toString()));
+                                Toast.makeText(MainActivity.this, "Οι τοποθεσίες ανανεώθηκαν", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
+                } catch (Exception e) {
+                    Log.v("error", e.toString());
+                }
+            }
+        }).start();
     }
 
 }
