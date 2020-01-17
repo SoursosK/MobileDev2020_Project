@@ -124,7 +124,7 @@
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Επιτυχής Υποβολή</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" onclick="sms()">&times;</button>
           </div>
 
           <!-- Modal body -->
@@ -186,6 +186,21 @@
       $(document).ready(function () {
         addMapPicker();
       });
+    </script>
+    <script>
+      function sms() {
+        
+        var text = document.getElementById('formGroupExampleInput').value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+          }
+        };
+        xhttp.open("POST", "sms.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(text);
+      }
     </script>
 
 </body>
